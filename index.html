@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+        
+<link rel="stylesheet" href="css/topcoat-desktop-dark.min.css"/>
+<link  id="hostStyle" rel="stylesheet" href="css/styles.css"/>
+
+<title></title>
+</head>
+
+<body class="hostElt">
+
+    <div id="content">        
+            <button id="loadLayers" class="topcoat-button--large hostFontSize">load layers</button>  
+            <button id="process" class="topcoat-button--large hostFontSize">process</button>           
+        <form name="selects">
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" class="selectType" id="eachLay" name="type" value="eachLay">
+                <div class="topcoat-radio-button__checkmark"></div>
+                from each layers
+            </label>
+            <label for="" class="topcoat-radio-button">
+                <input type="radio" class="selectType" id="commons" name="type" value="commons">
+                <div class="topcoat-radio-button__checkmark"></div>
+                from common layers
+            </label> 
+            <table id="layers">
+               <!--
+                <tr>
+                    <td>
+                        documentName
+                    <td>
+                        <select multiple>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </td>
+                </tr>
+                -->
+            </table>
+            <ul id="commonLay"></ul>
+        </form>     
+    </div>
+    
+    <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->
+    <span class="debuglink" id="reload">Reload</span>
+    <span class="debuglink" id="debug">Debug</span>
+    <span class="debuglink" id="sources">Sources</span>
+    
+    <script src="js/libs/CSInterface.js"></script>
+    <script src="js/libs/jquery-2.0.2.min.js"></script>
+
+    <script src="js/themeManager.js"></script>
+    <script src="js/main.js"></script>
+
+        
+</body>
+</html>

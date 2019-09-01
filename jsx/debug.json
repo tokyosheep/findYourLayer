@@ -1,0 +1,37 @@
+[
+    {
+        "name": "serious?.ai",
+        "layers": [
+            {
+                "name": "レイヤー 3",
+                "flag": true
+            },
+            {
+                "name": "レイヤー 2",
+                "flag": false
+            },
+            {
+                "name": "レイヤー 1",
+                "flag": false
+            }
+        ]
+    },
+    {
+        "name": "rectangle.ai",
+        "layers": [
+            {
+                "name": "レイヤー 1",
+                "flag": true
+            }
+        ]
+    },
+    {
+        "name": "pattern.ai",
+        "layers": [
+            {
+                "name": "レイヤー 1",
+                "flag": true
+            }
+        ]
+    }
+]
