@@ -51,9 +51,9 @@ selectEachLayers(obj);
 function selectCommonLayers(array){
     app.activeDocument = app.documents[0];
     var docs = getAlldocs();
-    for(var n=0;n<docs.length;n++){
-        activeDocument.selection = null;  
+    for(var n=0;n<docs.length;n++){ 
         app.activeDocument = docs[n];
+        activeDocument.selection = null; 
         for(var j=0;j<array.length;j++){
             try{
                 selectItemsOnLayer(activeDocument.layers[array[j]]);
@@ -70,6 +70,7 @@ function selectEachLayers(objects){
     for(var n=0;n<objects.length;n++){
         try{
             app.activeDocument = app.documents[objects[n].name];
+            activeDocument.selection = null;
         }catch(e){
             continue;
         }

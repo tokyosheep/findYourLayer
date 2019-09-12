@@ -1,10 +1,18 @@
 [
     {
-        "name": "rectangle.ai",
+        "name": "nobody.ai",
         "layers": [
             {
-                "name": "レイヤー 1",
+                "name": "レイヤー 3",
                 "flag": true
+            },
+            {
+                "name": "レイヤー 2",
+                "flag": false
+            },
+            {
+                "name": "レイヤー 1",
+                "flag": false
             }
         ]
     },
@@ -12,21 +20,33 @@
         "name": "pattern.ai",
         "layers": [
             {
-                "name": "レイヤー 1",
+                "name": "レイヤー 3",
                 "flag": true
-            }
-        ]
-    },
-    {
-        "name": "nobody.ai",
-        "layers": [
+            },
             {
                 "name": "レイヤー 2",
                 "flag": false
             },
             {
                 "name": "レイヤー 1",
+                "flag": false
+            }
+        ]
+    },
+    {
+        "name": "space.ai",
+        "layers": [
+            {
+                "name": "レイヤー 3",
                 "flag": true
+            },
+            {
+                "name": "レイヤー 2",
+                "flag": false
+            },
+            {
+                "name": "レイヤー 1",
+                "flag": false
             }
         ]
     }
