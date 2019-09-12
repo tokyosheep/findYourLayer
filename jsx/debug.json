@@ -1,22 +1,5 @@
 [
     {
-        "name": "serious?.ai",
-        "layers": [
-            {
-                "name": "レイヤー 3",
-                "flag": true
-            },
-            {
-                "name": "レイヤー 2",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 1",
-                "flag": false
-            }
-        ]
-    },
-    {
         "name": "rectangle.ai",
         "layers": [
             {
@@ -28,6 +11,19 @@
     {
         "name": "pattern.ai",
         "layers": [
+            {
+                "name": "レイヤー 1",
+                "flag": true
+            }
+        ]
+    },
+    {
+        "name": "nobody.ai",
+        "layers": [
+            {
+                "name": "レイヤー 2",
+                "flag": false
+            },
             {
                 "name": "レイヤー 1",
                 "flag": true

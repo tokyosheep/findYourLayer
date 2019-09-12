@@ -52,6 +52,7 @@ function selectCommonLayers(array){
     app.activeDocument = app.documents[0];
     var docs = getAlldocs();
     for(var n=0;n<docs.length;n++){
+        activeDocument.selection = null;  
         app.activeDocument = docs[n];
         for(var j=0;j<array.length;j++){
             try{
