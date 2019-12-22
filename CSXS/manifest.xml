@@ -69,17 +69,17 @@
 					<Menu>findYourLayer</Menu>
 					<Geometry>
 						<Size>
-							<Height>300</Height>
-							<Width>300</Width>
+							<Height>400</Height>
+							<Width>600</Width>
 						</Size>
-                    <!--<MinSize>
-                            <Height>550</Height>
-                            <Width>400</Width>
+                    	<MinSize>
+                            <Height>250</Height>
+                            <Width>200</Width>
                         </MinSize>
                         <MaxSize>
-                            <Height>550</Height>
-                            <Width>400</Width>
-                        </MaxSize>-->
+                            <Height>650</Height>
+                            <Width>800</Width>
+                        </MaxSize>
                         
 					</Geometry>
 					<Icons>

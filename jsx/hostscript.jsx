@@ -1,96 +1,5 @@
-/*
-var obj = [
-    {
-        "name": "C.ai",
-        "layers": [
-            {
-                "name": "レイヤー 3",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 2",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 1",
-                "flag": true
-            }
-        ]
-    },
-    {
-        "name": "A.ai",
-        "layers": [
-            {
-                "name": "レイヤー 3",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 2",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 1",
-                "flag": true
-            }
-        ]
-    },
-    {
-        "name": "B.ai",
-        "layers": [
-            {
-                "name": "レイヤー 1",
-                "flag": true
-            }
-        ]
-    }
-];
 
-selectEachLayers(obj);
-*/
 
-function selectCommonLayers(array){
-    app.activeDocument = app.documents[0];
-    var docs = getAlldocs();
-    for(var n=0;n<docs.length;n++){ 
-        app.activeDocument = docs[n];
-        activeDocument.selection = null; 
-        for(var j=0;j<array.length;j++){
-            try{
-                selectItemsOnLayer(activeDocument.layers[array[j]]);
-            }catch(e){
-
-            }
-        }
-    }
-    return true;
-}
-
-function selectEachLayers(objects){
-    app.activeDocument = app.documents[0];
-    for(var n=0;n<objects.length;n++){
-        try{
-            app.activeDocument = app.documents[objects[n].name];
-            activeDocument.selection = null;
-        }catch(e){
-            continue;
-        }
-        for(var j=0;j<objects[n].layers.length;j++){
-            try{
-                $.writeln("activeLay:"+app.activeDocument.layers[j].name);
-                $.writeln("objects:"+objects[n].layers[j].name);
-                $.writeln(objects[n].layers[j].flag);
-                $.writeln(app.activeDocument.layers[j].name == objects[n].layers[j].name);
-                if(app.activeDocument.layers[j].name == objects[n].layers[j].name && objects[n].layers[j].flag
-                ){
-                    $.writeln("go");
-                    selectItemsOnLayer(activeDocument.layers[objects[n].layers[j].name]);
-                }
-            }catch(e){
-                continue;
-            }
-        }
-    }
-}
 
 function getAlldocs(){
     var docs = [];
@@ -100,13 +9,46 @@ function getAlldocs(){
     return docs;
 }
 
-function selectItemsOnLayer(layer){
-    for(var i = 0;i<layer.pageItems.length;i++){
-        try{
-            $.writeln(layer.pageItems[i]);
-            layer.pageItems[i].selected = true;
-        }catch(e){
-            alert(e);
-        }
+function lockLayers(layer,flag){
+    try{
+        layer.locked = flag;
+    }catch(e){
+
+    }
+}
+
+function visibleLayer(layer,flag){
+    try{
+        lauyer.visible = flag;
+    }catch(e){
+        
+    }
+}
+
+function selectFunc(layer,type){
+    switch(type.btn){
+        case "lock":
+        lockLayers(layer,true);
+        break;
+
+        case "unlock":
+        lockLayers(layer,false);
+        break;
+
+        case "visible":
+        visibleLayer(layer,true);
+        break;
+
+        case "unbisible":
+        visibleLayer(layer,false);
+        break;
+
+        case "downLay":
+
+        break;
+
+        case "upLay":
+
+        break
     }
 }

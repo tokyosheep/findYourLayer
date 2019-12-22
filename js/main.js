@@ -13,35 +13,18 @@ window.onload = () =>{
     const commonLay = document.getElementById("commonLay");
     const loadLayers = document.getElementById("loadLayers");
     const process = document.getElementById("process");
+    const lock = document.getElementById("lock");
+    const unlock = document.getElementById("unlock");
+    const downLay = document.getElementById("downLay");
+    const upLay = document.getElementById("upLay");
+    const visible = document.getElementById("visible");
+    const unbisible = document.getElementById("unbisible");
+    const optNumber = document.getElementById("optNumber");
     
-    class JsxEvent{
-        constructor(jsx,btn){
-            this.jsx = jsx;
-            this.btn = btn;
-            this.btn.addEventListener("click",this);
-        }
-        
-        handleEvent(){}
-        
-        sendJsx(jsx){
-            return new Promise((resolve,reject)=>{
-                csInterface.evalScript(`$.evalFile("${extensionRoot}${this.jsx}")`,(o)=>{
-                    if(!o){
-                        reject(false);
-                    }
-                    const object = JSON.parse(o);
-                    resolve(object);
-                });
-            });
-        }
-        
-        removeChildren(parent){
-            while(parent.firstChild){
-                parent.removeChild(parent.firstChild);
-            }
-        }
-    }
-    
+    const JsxEvent = require(`${__dirname}/js/import/ButtonEvent`);
+    const makeBoxes = require(`${__dirname}/js/import/makeBoxes`);
+    const ConnectJsx = require(`${__dirname}/js/import/connect`);
+    const createSelectTable = require(`${__dirname}/js/import/createSelectTable`);
     
     class createForm extends JsxEvent{
         constructor(jsx,btn){
@@ -78,22 +61,15 @@ window.onload = () =>{
         }
         
         createSelectForm(obj){
-            const tr = document.createElement("tr");
-            layers.appendChild(tr);
-            const td1 = document.createElement("td");
-            td1.textContent = obj.name;
-            tr.appendChild(td1);
-            const td2 = document.createElement("td");
-            tr.appendChild(td2);
-            const select = document.createElement("select");
-            select.id = Object.keys(obj)[0];
-            select.classList.add("layers");
-            select.multiple = true;
-            select.dataset.name = obj.name;
-            td2.appendChild(select);
+            const table = createSelectTable(layers);
+            table.td1.textContent = obj.name;
+            table.select.id = Object.keys(obj)[0];
+            table.select.classList.add("layers");
+            table.select.multiple = true;
+            table.select.dataset.name = obj.name;
             obj.layers.forEach((v,i)=>{
                 const option = this.createOption(v,i);
-                select.appendChild(option);
+                table.select.appendChild(option);
             });
         }
         
@@ -105,63 +81,41 @@ window.onload = () =>{
         }
         
         createCheckBox(parent,layerName){
-            const li = document.createElement("li");
-            parent.appendChild(li);
-            const label = document.createElement("label");
-            label.textContent = layerName;
-            label.classList.add("topcoat-checkbox");
-            li.appendChild(label);
-            const input = document.createElement("input");
-            input.type = "checkbox";
-            input.classList.add("commonLay");
-            input.id = layerName;
-            label.appendChild(input);
-            const div = document.createElement("div");
-            div.classList.add("topcoat-checkbox__checkmark");
-            label.appendChild(div);
+            const checkList = makeBoxes.makeCheckbox(parent);
+            checkList.span.textContent = layerName;
+            checkList.checkbox.classList.add("commonLay");
+            checkList.checkbox.id = layerName;
         }
     }
     const cf = new createForm("getLayers.jsx",loadLayers);
     
-    
+    console.log(document.forms);
     class SelectLayers extends JsxEvent{
-        constructor(btn){
+        constructor(btn,func = null){
             super(null,btn);
+            this.func = func;
         }
         
         handleEvent(){
-            const type = document.forms.selects.type.value;
-            console.log(type);
-            if(type === "commons"){
-                const commons = new CommonLayer("selectCommonLayers");
+            if(this.func === null)this.func = document.forms.selectType.type.value;
+            this.type = document.forms.selectType.type.value;
+            console.log(this.type);
+            const option = {btn:this.btn.id};
+            if(this.type === "selectCommonLayers"){
+                const commons = new CommonLayer(this.func,option);
             }
-            if(type === "eachLay"){
-                const each = new EachDocmentlayers("selectEachLayers");
+            if(this.type === "selectEachLayers"){
+                const each = new EachDocmentlayers(this.func,option);
             }
         }
     }
     const proceed = new SelectLayers(process);
     
-    class ConectJsx {
-        constructor(funcType){
-            this.funcType = funcType
-        }
-        
-        SelectLayers(obj){
-            return new Promise((resolve,reject)=>{
-                csInterface.evalScript(`${this.funcType}(${JSON.stringify(obj)})`,(o)=>{
-                    if(!o){
-                        reject(o);
-                    }
-                    resolve(JSON.parse(o));
-                });
-            });
-        }
-    }
     
-    class CommonLayer extends ConectJsx{
-        constructor(funcType){
+    class CommonLayer extends ConnectJsx{
+        constructor(funcType,option){
             super(funcType);
+            this.option = option;
             this.connectLay();
         }
         
@@ -169,15 +123,16 @@ window.onload = () =>{
             console.log("go");
             const selectedLay = Array.from(document.getElementsByClassName("commonLay")).filter(v => v.checked).map(v => v.id);
             console.log(selectedLay);
-            const flag = await this.SelectLayers(selectedLay).catch(err => console.log(err));
+            const flag = await this.CallHostScript({selectedLay:selectedLay,option:this.option}).catch(err => console.log(err));
             console.log(flag);
         }
         
     }
     
-    class EachDocmentlayers extends ConectJsx{
-        constructor(funcType){
+    class EachDocmentlayers extends ConnectJsx{
+        constructor(funcType,option){
             super(funcType);
+            this.option = option;
             this.connectLay();
         }
         
@@ -195,7 +150,8 @@ window.onload = () =>{
             },[]);
             console.log(selected);
             const write = await writeJson(`${extensionRoot}debug.json`,selected);
-            const flag = await this.SelectLayers(selected).catch(err => console.log(err));
+            const flag = await this.CallHostScript({selected:selected,option:this.option}).catch(err => console.log(err));
+            console.log(flag);
         }
     }
     

@@ -1,13 +1,25 @@
 [
     {
-        "name": "nobody.ai",
+        "name": "mainFile.ai",
         "layers": [
             {
-                "name": "レイヤー 3",
+                "name": "Regmark",
+                "flag": false
+            },
+            {
+                "name": "Cut",
+                "flag": false
+            },
+            {
+                "name": "2019121152701",
                 "flag": true
             },
             {
-                "name": "レイヤー 2",
+                "name": "H",
+                "flag": false
+            },
+            {
+                "name": "cut",
                 "flag": false
             },
             {
@@ -17,31 +29,26 @@
         ]
     },
     {
-        "name": "pattern.ai",
+        "name": "cropOnlarge.ai",
         "layers": [
             {
-                "name": "レイヤー 3",
-                "flag": true
-            },
-            {
-                "name": "レイヤー 2",
+                "name": "Regmark",
                 "flag": false
             },
             {
-                "name": "レイヤー 1",
+                "name": "Cut",
                 "flag": false
-            }
-        ]
-    },
-    {
-        "name": "space.ai",
-        "layers": [
+            },
             {
-                "name": "レイヤー 3",
+                "name": "2019111919901",
+                "flag": false
+            },
+            {
+                "name": "H",
                 "flag": true
             },
             {
-                "name": "レイヤー 2",
+                "name": "cut",
                 "flag": false
             },
             {
