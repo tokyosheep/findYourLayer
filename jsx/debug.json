@@ -1,60 +1,46 @@
-[
-    {
-        "name": "mainFile.ai",
-        "layers": [
-            {
-                "name": "Regmark",
-                "flag": false
-            },
-            {
-                "name": "Cut",
-                "flag": false
-            },
-            {
-                "name": "2019121152701",
-                "flag": true
-            },
-            {
-                "name": "H",
-                "flag": false
-            },
-            {
-                "name": "cut",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 1",
-                "flag": false
-            }
-        ]
+{
+    "option": {
+        "id": "unvisible"
     },
-    {
-        "name": "cropOnlarge.ai",
-        "layers": [
-            {
-                "name": "Regmark",
-                "flag": false
-            },
-            {
-                "name": "Cut",
-                "flag": false
-            },
-            {
-                "name": "2019111919901",
-                "flag": false
-            },
-            {
-                "name": "H",
-                "flag": true
-            },
-            {
-                "name": "cut",
-                "flag": false
-            },
-            {
-                "name": "レイヤー 1",
-                "flag": false
-            }
-        ]
-    }
-]
+    "selectedLay": [
+        {
+            "name": "C.ai",
+            "layers": [
+                {
+                    "name": "レイヤー 4",
+                    "flag": false
+                },
+                {
+                    "name": "レイヤー 3",
+                    "flag": false
+                },
+                {
+                    "name": "レイヤー 2",
+                    "flag": true
+                },
+                {
+                    "name": "レイヤー 1",
+                    "flag": false
+                }
+            ]
+        },
+        {
+            "name": "imposition.ai",
+            "layers": [
+                {
+                    "name": "レイヤー 1",
+                    "flag": true
+                }
+            ]
+        },
+        {
+            "name": "Spot.ai",
+            "layers": [
+                {
+                    "name": "レイヤー 1",
+                    "flag": true
+                }
+            ]
+        }
+    ]
+}

@@ -18,8 +18,9 @@ window.onload = () =>{
     const downLay = document.getElementById("downLay");
     const upLay = document.getElementById("upLay");
     const visible = document.getElementById("visible");
-    const unbisible = document.getElementById("unbisible");
-    const optNumber = document.getElementById("optNumber");
+    const unvisible = document.getElementById("unvisible");
+    //const optNumber = document.getElementById("optNumber");
+    const buttons = [process,unlock,lock,downLay,upLay,visible,unvisible];
     
     const JsxEvent = require(`${__dirname}/js/import/ButtonEvent`);
     const makeBoxes = require(`${__dirname}/js/import/makeBoxes`);
@@ -89,7 +90,62 @@ window.onload = () =>{
     }
     const cf = new createForm("getLayers.jsx",loadLayers);
     
-    console.log(document.forms);
+
+    class MainProcess extends ConnectJsx{
+        constructor(btn){
+            super();
+            this.btn = btn;
+            this.options = {option:{id:this.btn.id}};
+            this.btn.addEventListener("click",this);
+        }
+
+        async handleEvent(){
+            this.funcType = document.forms.selectType.type.value;
+            if(!this.setType())return false;
+            const result = await writeJson(`${extensionRoot}debug.json`,this.options);
+            console.log(this.options);
+            const res = await this.CallHostScript(this.options);
+            console.log(res);
+        }
+
+        setType(){
+            switch(this.funcType){
+                case "selectCommonLayers":
+                    this.setCommonOptions();
+                return true;
+
+                case "selectEachLayers":
+                    this.setEachOptions();
+                return true;
+
+                default:
+                    alert("you must set layer option!");
+                return false;    
+            }
+        }
+
+        setCommonOptions(){
+            console.log("go");
+            this.options.selectedLay = Array.from(document.getElementsByClassName("commonLay")).filter(v => v.checked).map(v => v.id);
+        }
+
+        setEachOptions(){
+            const selectBoxes = Array.from(document.getElementsByClassName("layers"));
+            this.options.selectedLay = selectBoxes.reduce((acc,current,index)=>{
+                const obj = {}
+                obj.name = current.dataset.name;
+                console.log(current.getElementsByTagName("option"));
+                obj.layers = Array.from(current.getElementsByTagName("option")).map(v=>{
+                    return {name:v.textContent,flag:v.selected};
+                });
+                acc[index] = obj;
+                return acc;
+            },[]);
+        }
+    }
+
+    buttons.forEach(btn=> {const e = new MainProcess(btn)});//register events
+    /*
     class SelectLayers extends JsxEvent{
         constructor(btn,func = null){
             super(null,btn);
@@ -102,7 +158,7 @@ window.onload = () =>{
             console.log(this.type);
             const option = {btn:this.btn.id};
             if(this.type === "selectCommonLayers"){
-                const commons = new CommonLayer(this.func,option);
+                const commons = new CommonLayer(this.type,option);
             }
             if(this.type === "selectEachLayers"){
                 const each = new EachDocmentlayers(this.func,option);
@@ -123,7 +179,7 @@ window.onload = () =>{
             console.log("go");
             const selectedLay = Array.from(document.getElementsByClassName("commonLay")).filter(v => v.checked).map(v => v.id);
             console.log(selectedLay);
-            const flag = await this.CallHostScript({selectedLay:selectedLay,option:this.option}).catch(err => console.log(err));
+            const flag = await this.CallHostScript({"selectedLay":selectedLay,"option":this.option}).catch(err => console.log(err));
             console.log(flag);
         }
         
@@ -154,16 +210,16 @@ window.onload = () =>{
             console.log(flag);
         }
     }
-    
-    function writeJson(json_path,obj){
-        return new Promise(resolve=>{
-            fs.writeFile(json_path,JSON.stringify(obj,null,4),(err)=>{//デバッグ用にjson書き出し
-                if(err){
-                    alert(err);
-                }
-                resolve(true);
-            })
-        })    
-    }
+    */
+   function writeJson(json_path,obj){
+    return new Promise(resolve=>{
+        fs.writeFile(json_path,JSON.stringify(obj,null,4),(err)=>{//デバッグ用にjson書き出し
+            if(err){
+                alert(err);
+            }
+            resolve(true);
+        })
+    })    
+}
 }
     
